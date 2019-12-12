@@ -1,6 +1,6 @@
 {
   "name": "aircall",
-  "version": "0.3.3-1",
+  "version": "0.0.1-1",
   "description": "Aircall unofficial linux app",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": "github.com:squalou/aircall-linux.git",
   "homepage": "github.com:squalou/aircall-linux.git",
-  "author": "Squalou Jenkins <squalou.jenkins@gnmail.com>",
+  "author": "Squalou Jenkins <squalou.jenkins@gmail.com>",
   "license": "MIT",
   "build": {
     "appId": "Aircall Linux",

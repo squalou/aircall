@@ -49,13 +49,12 @@ const handleRedirect = (e, url) => {
 const initializeWindow = (config) => {
 	const bwOptions = (config && config.bounds) ? Object.assign(getBrowserWindowOptions(), config.bounds) : getBrowserWindowOptions()
 	const extraOptions = getExtraOptions();
-	isThemed = (config && config.isThemed);
 
 	mainWindow = new BrowserWindow(bwOptions);
 	mainWindow.loadURL(extraOptions.url);
 
 	mainWindow.once('ready-to-show', () => {
-		
+		mainWindow.show();
 	});
 
 	mainWindow.on('close', (e) => {
@@ -64,7 +63,6 @@ const initializeWindow = (config) => {
 			configsData = {};
 			configsData.bounds = mainWindow.getBounds();
 			configsData.wasMaximized = isMaximized;
-			configsData.isThemed = isThemed;
 			ConfigManager.updateConfigs(configsData);
 		}else{
 			e.preventDefault();
