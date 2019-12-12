@@ -1,0 +1,9 @@
+[Desktop Entry]
+Terminal=false
+Type=Application
+Name=Aircall Linux
+Comment=Aircall client for Linux
+Exec=env ELECTRON_DISABLE_SANDBOX=true /opt/aircall/aircall
+Icon=aircall.png
+StartupWMClass=aircall
+Categories=Network;InstantMessaging;
