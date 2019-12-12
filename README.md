@@ -38,7 +38,7 @@ export ELECTRON_DISABLE_SANDBOX=true; electron .
 
 ## Arch (Manjaro, Antergos)
 
-a package 'aircall' is supposed to be soon availabe on AUR for Arch Linux and derivatives.
+a package 'aircall' is availabe on AUR for Arch Linux and derivatives.
 
 ## Debian based (Ubuntu, Mint ...)
 
