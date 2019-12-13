@@ -65,8 +65,9 @@ The provided .desktop file takes care of it, so running from your desktop launch
 
 It may seem weird but in order to have the systray icon color change depending on call status, we use 'ipc' js feature, which in turn requires these window options :
 
-```			"nodeIntegration": true,
-			"sandbox": false
+```
+    "nodeIntegration": true,
+    "sandbox": false
 ```
 
 Which finally require to disable sandbox.
