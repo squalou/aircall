@@ -70,7 +70,7 @@ It may seem weird but in order to have the systray icon color change depending o
     "sandbox": false
 ```
 
-Which finally require to disable sandbox.
+Which finally requires to disable sandbox.
 
 If you don't care about trayicon color : feel free to use sanbox mode :)
 
