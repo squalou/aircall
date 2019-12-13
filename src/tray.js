@@ -52,39 +52,32 @@ const buildContextMenu = (mainWindow) => {
 }
 
 const initializeTray = (windowObj) => {
-	systemTrayIcon = new Tray(pathsManifest.ICON_OFFLINE_MSG);
+	systemTrayIcon = new Tray(pathsManifest.ICON_UNKNOWN);
 	mainWindow = windowObj;
-	// this requires nodeIntegration: true but breaks Ctrl K, so we use another windowObj
 	mainWindow.webContents.on('dom-ready', () => {
-	    mainWindow.webContents.executeJavaScript('var ipc; try{var ipc = require(\'electron\').ipcRenderer; var fi = document.querySelector("link#favicon256"); console.log(fi); ipc.send("favicon-changed", fi.href); var callback = function(mutationList) { ipc.send("favicon-changed", fi.href); }; var observer = new MutationObserver(callback); observer.observe(fi, { attributes: true });}catch (e){console.log(e)};');
+	    mainWindow.webContents.executeJavaScript('var ipc; try{var ipc = require(\'electron\').ipcRenderer; var ico=null;function awaitIco(){ico=document.querySelector(".ico:not(.ng-scope)"); if(ico == null){setTimeout(awaitIco, 150);} else {observeIco(ico)}}; awaitIco();  function observeIco(ico){ var callback = function(mutationList) {var avico = document.querySelector(".availability.available"); ipc.send("icon-changed", avico !== null); };var observer = new MutationObserver(callback); observer.observe(ico, { attributes: true, subtree: true })};}catch (e){console.log(e)};');
 	});
 	return buildContextMenu(mainWindow);
 
 };
 
-ipcMain.on('favicon-changed', (evt, href) => {
+ipcMain.on('icon-changed', (evt, available) => {
        var itype = "";
-       if (href.match(/chat-favicon-no-new/)) {
-         itype = "NORMAL";
-       }else if (href.match(/chat-favicon-new-non-notif/)) {
-         itype = "UNREAD";
-       }else if (href.match(/chat-favicon-new-notif/)) {
-         itype = "ATTENTION";
-       }else if (href.match(/^data:image\/png;base64,iVBOR.+/)) {
-         itype = "OFFLINE";
+       if (available) {
+         itype = "AVAILABLE";
+       }else{
+         itype = "UNAVAILABLE";
        }
        setIcon(itype);
   });
 
 function iconForType(iconType) {
-       if (iconType == "NORMAL") {
-         return pathsManifest.ICON_NO_NEW_MSG;
-       }else if (iconType == "UNREAD") {
-         return pathsManifest.ICON_NEW_NON_NOTIF_MSG;
-       }else if (iconType == "ATTENTION") {
-         return pathsManifest.ICON_NEW_NOTIF_MSG;
+       if (iconType == "AVAILABLE") {
+         return pathsManifest.ICON_AVAILABLE;
+       }else if (iconType == "UNAVAILABLE") {
+         return pathsManifest.ICON_UNAVAILABLE;
        }
-       return pathsManifest.ICON_OFFLINE_MSG;
+       return pathsManifest.ICON_UNKNOWN;
   }
 
 const setIcon = (iconType) => {

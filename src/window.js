@@ -18,7 +18,7 @@ const getBrowserWindowOptions = () => {
 		"autoHideMenuBar": true,
 		"webPreferences": {
 			"nodeIntegration": true,
-			"sandbox": true
+			"sandbox": false
 
 		},
 		"show": false,
