@@ -55,7 +55,7 @@ const initializeTray = (windowObj) => {
 	systemTrayIcon = new Tray(pathsManifest.ICON_UNKNOWN);
 	mainWindow = windowObj;
 	mainWindow.webContents.on('dom-ready', () => {
-	    mainWindow.webContents.executeJavaScript('var ipc; try{var ipc = require(\'electron\').ipcRenderer; var ico=null;function awaitIco(){ico=document.querySelector(".ico:not(.ng-scope)"); if(ico == null){setTimeout(awaitIco, 150);} else {observeIco(ico)}}; awaitIco();  function observeIco(ico){ var callback = function(mutationList) {var avico = document.querySelector(".availability.available"); ipc.send("icon-changed", avico !== null); };var observer = new MutationObserver(callback); observer.observe(ico, { attributes: true, subtree: true })};}catch (e){console.log(e)};');
+	    mainWindow.webContents.executeJavaScript('var ipc; try{var ipc = require(\'electron\').ipcRenderer; var ico=null;function upd(){var avico = document.querySelector(".availability.available"); ipc.send("icon-changed", avico !== null);};function awaitIco(){ico=document.querySelector(".ico:not(.ng-scope)"); if(ico == null){setTimeout(awaitIco, 150);} else {upd();observeIco(ico)}}; awaitIco(); function observeIco(ico){ var callback = function(mutationList) {upd();};var observer = new MutationObserver(callback); observer.observe(ico, { attributes: true, subtree: true })};}catch (e){console.log(e)};');
 	});
 	return buildContextMenu(mainWindow);
 
