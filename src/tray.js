@@ -61,24 +61,34 @@ const initializeTray = (windowObj) => {
 
 };
 
+ipcMain.on('incoming-call', (evt,n) => {
+	mainWindow.show();
+});
+
 ipcMain.on('icon-changed', (evt, available) => {
-       var itype = "";
-       if (available) {
-         itype = "AVAILABLE";
-       }else{
-         itype = "UNAVAILABLE";
-       }
-       setIcon(itype);
-  });
+	var itype = "";
+	if (available) {
+		itype = "AVAILABLE";
+	}else{
+		itype = "UNAVAILABLE";
+		incoming();
+	}
+	setIcon(itype);
+});
+
+function incoming(){
+//setTimeout ... does not wotk for a function with parameters. Googl fucked up things for supposed security again, so I use global variable instead. Go wonder.
+mainWindow.webContents.executeJavaScript('var ipc; try{var ipc = require(\'electron\').ipcRenderer; var incom=null;	const MAX=20; var k=0;function awaitIncom(){k++;incom=document.querySelector("#br-incoming-call-main-button");if(incom !== null){ipc.send("incoming-call")}else if(k<MAX){setTimeout(awaitIncom, 300);}}; awaitIncom();}catch (e){console.log(e)};')
+}
 
 function iconForType(iconType) {
-       if (iconType == "AVAILABLE") {
-         return pathsManifest.ICON_AVAILABLE;
-       }else if (iconType == "UNAVAILABLE") {
-         return pathsManifest.ICON_UNAVAILABLE;
-       }
-       return pathsManifest.ICON_UNKNOWN;
-  }
+	if (iconType == "AVAILABLE") {
+		return pathsManifest.ICON_AVAILABLE;
+	}else if (iconType == "UNAVAILABLE") {
+		return pathsManifest.ICON_UNAVAILABLE;
+	}
+	return pathsManifest.ICON_UNKNOWN;
+}
 
 const setIcon = (iconType) => {
        systemTrayIcon.setImage(iconForType(iconType));
