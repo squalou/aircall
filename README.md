@@ -4,6 +4,10 @@ Nothing much else to say, see www.aircall.io for more info about aircall.
 
 I'm not affiliated to aircall company in any way, just trying to use their IP Phone solution on linux.
 
+## Important notes
+
+since 'new' version of aircall app (late january 2020), the icon color change in systray does not work anymore. Working on it.
+
 ## build and run
 
 ```sh
