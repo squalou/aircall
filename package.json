@@ -29,7 +29,7 @@
     "path": "0.12.7"
   },
   "devDependencies": {
-    "electron": "^7.1.0",
+    "electron": "^9.4.0",
     "electron-builder": ">=20.44.4"
   }
 }
